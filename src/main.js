@@ -3,6 +3,7 @@ let config = {
     render: {
         pixelArt: true
     },
+    backgroundColor: '#ADD8E6',
     width: 640,
     height: 240,
     physics: {
