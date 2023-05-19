@@ -1,11 +1,11 @@
 class Road extends Phaser.Scene{
     constructor() {
         super('RoadScene')
-        this.VEL = 300  
+        this.VEL = 400  
     }
 
     preload(){
-        this.load.image('car','./assets/orangeTruck.png')
+        this.load.image('car','./assets/orangeTruck2.png')
         this.load.image('road','./assets/road.png')
         this.load.image('ball','./assets/ball.png')
         this.load.image('bar','./assets/bar.png')
@@ -53,49 +53,66 @@ class Road extends Phaser.Scene{
         this.car01 = this.physics.add.image(game.config.width/5, game.config.height/1.5, 'car').setScale(1);
         this.car01.body.allowGravity = true;
         this.car01.body.immovable = false;
+        this.car01.setBodySize(tileSize, tileSize/2, true)
         this.car01.setCollideWorldBounds(true);
 
         //create Ball
-        this.ball01 = this.physics.add.image(game.config.width/5, game.config.height/2, 'ball').setScale(1);
+        this.ball01 = this.physics.add.image(game.config.width/5, game.config.height/2, 'ball').setScale(0.3);
         this.ball01.body.allowGravity = false;
         this.ball01.body.immovable = false;
-        this.ball01.setCollideWorldBounds(true);
-        this.ball01.setDrag(100)
+        this.ball01.setCollideWorldBounds(true,1,1);
+        //this.ball01.setDrag(50)
         this.ball01.body.isCircle = true;
+        this.ball01.body.setBounce(1,1)
 
         //create Bar
-        this.bar01 = this.physics.add.image(game.config.width/3, game.config.height/2, 'bar').setScale(2);
+        /*this.bar01 = this.physics.add.image(game.config.width/3, game.config.height/2, 'bar').setScale(2);
         this.bar01.body.allowGravity = false;
         this.bar01.body.immovable = false;
-        this.bar01.setCollideWorldBounds(true);
-        this.bar01.angle = 45
-        this.bar01.body.angle = 45
+        this.bar01.setCollideWorldBounds(true);*/
+        //this.bar01.angle = 45
+        //this.bar01.body.angle = 45
         
 
         this.ball02 = this.physics.add.image(game.config.width/3, game.config.height/2, 'ball').setScale(1);
         this.ball02.body.allowGravity = false;
         this.ball02.body.immovable = false;
         this.ball02.body.isCircle = true;
+        this.ball02.body.setBounce(1,1)
+        this.ball02.setCollideWorldBounds(true,1,1);
         this.ball03 = this.physics.add.image(game.config.width/3 - this.ball02.width/2, game.config.height/2 + this.ball02.height/2, 'ball').setScale(1);
         this.ball03.body.allowGravity = false;
         this.ball03.body.immovable = false;
         this.ball03.body.isCircle = true;
+        this.ball03.body.setBounce(1,1)
+        this.ball03.setCollideWorldBounds(true,1,1);
         this.ball04 = this.physics.add.image(game.config.width/3 + this.ball02.width/2, game.config.height/2 - this.ball02.height/2, 'ball').setScale(1);
         this.ball04.body.allowGravity = false;
         this.ball04.body.immovable = false;
         this.ball04.body.isCircle = true;
+        this.ball04.body.setBounce(1,1)
+        this.ball04.setCollideWorldBounds(true,1,1)
         this.ball05 = this.physics.add.image(game.config.width/3 - this.ball02.width, game.config.height/2 + this.ball02.height, 'ball').setScale(1);
         this.ball05.body.allowGravity = false;
         this.ball05.body.immovable = false;
         this.ball05.body.isCircle = true;
+        this.ball05.body.setBounce(1,1)
+        this.ball05.setCollideWorldBounds(true,1,1);
         this.ball06 = this.physics.add.image(game.config.width/3 + this.ball02.width, game.config.height/2 - this.ball02.height, 'ball').setScale(1);
         this.ball06.body.allowGravity = false;
         this.ball06.body.immovable = false;
         this.ball06.body.isCircle = true;
+        this.ball06.body.setBounce(1,1)
+        this.ball06.setCollideWorldBounds(true,1,1);
+        this.ball02.setDrag(50)
+        this.ball03.setDrag(50)
+        this.ball04.setDrag(50)
+        this.ball05.setDrag(50)
+        this.ball06.setDrag(50)
 
         // add physics collider
         this.physics.add.collider(this.car01, this.ground);
-        this.physics.add.collider(this.bar01, this.ball01);
+        //this.physics.add.collider(this.bar01, this.ball01);
         this.physics.add.collider(this.ball01, this.ball02);
         this.physics.add.collider(this.ball01, this.ball03);
         this.physics.add.collider(this.ball01, this.ball04);
@@ -107,6 +124,8 @@ class Road extends Phaser.Scene{
 
         // Pair Input
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+
+        this.spawnArrow = false;
 
     }
 
@@ -132,13 +151,19 @@ class Road extends Phaser.Scene{
         } else if(this.cursors.down.isDown){
             this.direction.y = 1
         }
+
         this.direction.normalize()
-        this.bar01.setVelocity(this.VEL * this.direction.x, this.VEL * this.direction.y)
+        //this.bar01.setVelocity(this.VEL * this.direction.x, this.VEL * this.direction.y)
+        this.ball01.setVelocity(this.VEL * this.direction.x, this.VEL * this.direction.y)
         /*this.ball02.setVelocity(this.VEL * this.direction.x, this.VEL * this.direction.y)
         this.ball03.setVelocity(this.VEL * this.direction.x, this.VEL * this.direction.y)
         this.ball04.setVelocity(this.VEL * this.direction.x, this.VEL * this.direction.y)
         this.ball05.setVelocity(this.VEL * this.direction.x, this.VEL * this.direction.y)
         this.ball06.setVelocity(this.VEL * this.direction.x, this.VEL * this.direction.y)
         */
+
+        //spawn attack arrows
+        
+
     }
 }
