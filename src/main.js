@@ -11,10 +11,10 @@ let config = {
         arcade: {
             debug: true
         }
-    }
-    //scene: [ ]
+    },
+    scene: [ Road ]
 }
 
-const game = new Phaser.Game(config)
+let game = new Phaser.Game(config)
 
 let tileSize = 50;
