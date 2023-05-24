@@ -9,6 +9,7 @@ class Road extends Phaser.Scene{
         this.load.image('road','./assets/road.png')
         this.load.image('ball','./assets/ball.png')
         this.load.image('bar','./assets/bar.png')
+        this.load.image('arrow, ./assets/arrow.png')
     }
 
     create(){
@@ -55,6 +56,12 @@ class Road extends Phaser.Scene{
         this.car01.body.immovable = false;
         this.car01.setBodySize(tileSize, tileSize/2, true)
         this.car01.setCollideWorldBounds(true);
+
+        //create arrows
+        this.arrow1 = this.physics.add.image(-500, game.config.height/2, 'arrow')
+        this.arrow1.body.allowGravity = false;
+        this.arrow1.body.immovable = false;
+
 
         //create Ball
         this.ball01 = this.physics.add.image(game.config.width/5, game.config.height/2, 'ball').setScale(0.3);
@@ -163,7 +170,13 @@ class Road extends Phaser.Scene{
         */
 
         //spawn attack arrows
-        
+        if(Math.floor(Math.random()*5) == 0 && this.arrow1.x < 0){
+            this.spawnArrow = true;
+        }  
 
+        if(this.spawnArrow = true){
+            
+        }
     }
+    
 }
