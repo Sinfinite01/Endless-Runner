@@ -1,7 +1,7 @@
 class Road extends Phaser.Scene{
     constructor() {
         super('RoadScene')
-        this.VEL = 400  
+        this.VEL = 300  
     }
 
     preload(){
@@ -9,10 +9,10 @@ class Road extends Phaser.Scene{
         this.load.image('road','./assets/road.png')
         this.load.image('ball','./assets/ball.png')
         this.load.image('bar','./assets/bar.png')
-        this.load.image('arrow, ./assets/arrow.png')
+        //this.load.image('arrow, ./assets/arrow.png')
 
-         // load spritesheet
-         this.load.spritesheet('hero', './assets/hero.png', {frameWidth: 50, frameHeight: 50, startFrame: 0, endFrame: 4});
+        // load spritesheet
+        this.load.spritesheet('hero', './assets/hero.png', {frameWidth: 50, frameHeight: 50, startFrame: 0, endFrame: 3});
     }
 
     create(){
@@ -20,7 +20,7 @@ class Road extends Phaser.Scene{
         // variables and settings
         this.JUMP_VELOCITY = -600;    // pixels/second
         this.physics.world.gravity.y = 800; 
-        this.SCROLL_SPEED = 2;
+        this.SCROLL_SPEED = 1.5;
 
         // make ground tiles group
         this.ground = this.add.group();
@@ -67,13 +67,14 @@ class Road extends Phaser.Scene{
 
 
         //create Ball
-        this.ball01 = this.physics.add.image(game.config.width/5, game.config.height/2, 'ball').setScale(0.3);
+        /*this.ball01 = this.physics.add.image(game.config.width/5, game.config.height/2, 'ball').setScale(0.3);
         this.ball01.body.allowGravity = false;
         this.ball01.body.immovable = false;
         this.ball01.setCollideWorldBounds(true,1,1);
         //this.ball01.setDrag(50)
         this.ball01.body.isCircle = true;
         this.ball01.body.setBounce(1,1)
+        */
 
         //create Bar
         /*this.bar01 = this.physics.add.image(game.config.width/3, game.config.height/2, 'bar').setScale(2);
@@ -88,9 +89,9 @@ class Road extends Phaser.Scene{
         this.ball02.body.allowGravity = false;
         this.ball02.body.immovable = false;
         this.ball02.body.isCircle = true;
-        this.ball02.body.setBounce(1,1)
+        //this.ball02.body.setBounce(1,1)
         this.ball02.setCollideWorldBounds(true,1,1);
-        this.ball03 = this.physics.add.image(game.config.width/3 - this.ball02.width/2, game.config.height/2 + this.ball02.height/2, 'ball').setScale(1);
+        /*this.ball03 = this.physics.add.image(game.config.width/3 - this.ball02.width/2, game.config.height/2 + this.ball02.height/2, 'ball').setScale(1);
         this.ball03.body.allowGravity = false;
         this.ball03.body.immovable = false;
         this.ball03.body.isCircle = true;
@@ -113,21 +114,26 @@ class Road extends Phaser.Scene{
         this.ball06.body.immovable = false;
         this.ball06.body.isCircle = true;
         this.ball06.body.setBounce(1,1)
-        this.ball06.setCollideWorldBounds(true,1,1);
-        this.ball02.setDrag(50)
-        this.ball03.setDrag(50)
+        this.ball06.setCollideWorldBounds(true,1,1);*/
+        this.ball02.setDrag(100)
+        /*this.ball03.setDrag(50)
         this.ball04.setDrag(50)
         this.ball05.setDrag(50)
-        this.ball06.setDrag(50)
+        this.ball06.setDrag(50)*/
+
+        this.hero1 = this.physics.add.sprite(game.config.width/5, game.config.height/2, 'hero').setOrigin(0.5, 0.5);
+        this.hero1.body.height = 40
+        this.hero1.body.allowGravity = false;
+        this.hero1.body.immovable = false;
 
         // add physics collider
         this.physics.add.collider(this.car01, this.ground);
         //this.physics.add.collider(this.bar01, this.ball01);
-        this.physics.add.collider(this.ball01, this.ball02);
-        this.physics.add.collider(this.ball01, this.ball03);
-        this.physics.add.collider(this.ball01, this.ball04);
-        this.physics.add.collider(this.ball01, this.ball05);
-        this.physics.add.collider(this.ball01, this.ball06);
+        this.physics.add.collider(this.hero1, this.ball02);
+        /*this.physics.add.collider(this.hero1, this.ball03);
+        this.physics.add.collider(this.hero1, this.ball04);
+        this.physics.add.collider(this.hero1, this.ball05);
+        this.physics.add.collider(this.hero1, this.ball06);*/
 
         // input
         this.cursors = this.input.keyboard.createCursorKeys()
@@ -137,8 +143,19 @@ class Road extends Phaser.Scene{
 
         this.spawnArrow = false;
 
-        let hero1 = this.add.sprite(game.config.width/2, game.config.height/2, 'hero').setOrigin(0, 0);
-        hero.anims.play('hero');
+
+        
+
+
+        // animation config
+        this.anims.create({
+            key: 'heroCape',
+            frames: this.anims.generateFrameNumbers('hero', { start: 0, end: 3, first: 0}),
+            frameRate: 10
+        })
+        
+        
+        
 
     }
 
@@ -150,7 +167,11 @@ class Road extends Phaser.Scene{
             //this.car01.setDragY(-1000);
             //this.car01.y -= 5;
 
+            //this.hero1.anims.play('heroCape')
+        }
 
+        if(!this.hero1.anims.isPlaying){
+            this.hero1.anims.play('heroCape')
         }
 
         this.direction = new Phaser.Math.Vector2(0)
@@ -167,7 +188,7 @@ class Road extends Phaser.Scene{
 
         this.direction.normalize()
         //this.bar01.setVelocity(this.VEL * this.direction.x, this.VEL * this.direction.y)
-        this.ball01.setVelocity(this.VEL * this.direction.x, this.VEL * this.direction.y)
+        this.hero1.setVelocity(this.VEL * this.direction.x, this.VEL * this.direction.y)
         /*this.ball02.setVelocity(this.VEL * this.direction.x, this.VEL * this.direction.y)
         this.ball03.setVelocity(this.VEL * this.direction.x, this.VEL * this.direction.y)
         this.ball04.setVelocity(this.VEL * this.direction.x, this.VEL * this.direction.y)
@@ -183,6 +204,16 @@ class Road extends Phaser.Scene{
         if(this.spawnArrow = true){
             
         }
+
+
+
+        //this.hero1.anims.play('heroCape')
+
+        //if(!hero1.anims.isPlaying()){
+        //    hero1.anims.play('hero');
+        //}
+
+        
     }
     
 }
