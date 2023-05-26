@@ -10,6 +10,9 @@ class Road extends Phaser.Scene{
         this.load.image('ball','./assets/ball.png')
         this.load.image('bar','./assets/bar.png')
         this.load.image('arrow, ./assets/arrow.png')
+
+         // load spritesheet
+         this.load.spritesheet('hero', './assets/hero.png', {frameWidth: 50, frameHeight: 50, startFrame: 0, endFrame: 4});
     }
 
     create(){
@@ -133,6 +136,9 @@ class Road extends Phaser.Scene{
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
         this.spawnArrow = false;
+
+        let hero1 = this.add.sprite(game.config.width/2, game.config.height/2, 'hero').setOrigin(0, 0);
+        hero.anims.play('hero');
 
     }
 
