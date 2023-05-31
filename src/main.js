@@ -9,7 +9,7 @@ let config = {
     physics: {
         default: 'arcade',
         arcade: {
-            debug: true
+            //debug: true
         }
     },
     scene: [ Road ]
@@ -21,4 +21,4 @@ let tileSize = 50;
 
 // Reserve keyboard vars
 let keySPACE;
-let keyK, keyQ, keyW, keyE, keyR;
+let keyK, keyQ, keyW, keyE, keyR, keyG;

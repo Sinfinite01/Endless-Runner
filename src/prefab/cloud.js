@@ -14,15 +14,15 @@ class Cloud extends Phaser.GameObjects.Sprite {
 
         switch(test) {
             case 0:
-              this.scale = 0.5;
+              this.scale = 0.7;
               this.moveSpeed = 1;
               break;
             case 1:
-                this.scale = 0.3;
+                this.scale = 0.5;
                 this.moveSpeed = 0.5;
               break;
             case 2:
-                this.scale = 0.2;
+                this.scale = 0.3;
                 this.moveSpeed = 0.25;
               break;
           }
@@ -38,16 +38,16 @@ class Cloud extends Phaser.GameObjects.Sprite {
 
             switch(test) {
                 case 0:
-                  this.scale = 0.5;
-                  this.moveSpeed = 1;
+                  this.scale = 0.7;
+                  this.moveSpeed = 1 * Math.random()
                   break;
                 case 1:
-                    this.scale = 0.3;
-                    this.moveSpeed = 0.5;
+                    this.scale = 0.5;
+                    this.moveSpeed = 1 * Math.random()
                   break;
                 case 2:
-                    this.scale = 0.2;
-                    this.moveSpeed = 0.25;
+                    this.scale = 0.3;
+                    this.moveSpeed = 1 * Math.random()
                   break;
               }
         }

@@ -6,14 +6,17 @@ class Road extends Phaser.Scene{
 
     preload(){
         this.load.image('car','./assets/orangeTruck2.png')
-        this.load.image('road','./assets/road.png')
-        this.load.image('ball','./assets/ball.png')
+        this.load.image('road','./assets/road2.png')
+        this.load.image('ball','./assets/sun2.png')
         this.load.image('bar','./assets/bar.png')
         this.load.image('arrow', './assets/arrow.png')
-        this.load.image('cloud', './assets/cloud.png')
+        this.load.image('cloud', './assets/cloud2.png')
 
         // load spritesheet
         this.load.spritesheet('hero', './assets/hero.png', {frameWidth: 50, frameHeight: 50, startFrame: 0, endFrame: 3});
+    
+        // load spritesheet
+        this.load.spritesheet('explosion', './assets/sunExplosion.png', {frameWidth: 75, frameHeight: 75, startFrame: 0, endFrame: 20});
     }
 
     create(){
@@ -21,7 +24,7 @@ class Road extends Phaser.Scene{
         // variables and settings
         this.JUMP_VELOCITY = -600;    // pixels/second
         this.physics.world.gravity.y = 800; 
-        this.SCROLL_SPEED = 1.5;
+        this.SCROLL_SPEED = 1;
 
         // make ground tiles group
         this.ground = this.add.group();
@@ -77,6 +80,9 @@ class Road extends Phaser.Scene{
         this.ball01.body.setBounce(1,1)
         */
 
+
+
+
         //create Bar
         /*this.bar01 = this.physics.add.image(game.config.width/3, game.config.height/2, 'bar').setScale(2);
         this.bar01.body.allowGravity = false;
@@ -86,13 +92,15 @@ class Road extends Phaser.Scene{
         //this.bar01.body.angle = 45
         
 
-        this.ball02 = this.physics.add.image(game.config.width/3, game.config.height/2, 'ball').setScale(1);
-        this.ball02.body.allowGravity = false;
-        this.ball02.body.immovable = false;
-        this.ball02.body.isCircle = true;
-        this.ball02.setDepth(1)
+        this.sun1 = this.physics.add.sprite(game.config.width/3, game.config.height/2, 'ball').setScale(1);
+        this.sun1.body.allowGravity = false;
+        this.sun1.body.immovable = false;
+        this.sun1.body.isCircle = true;
+        this.sun1.setDepth(1)
         //this.ball02.body.setBounce(1,1)
-        this.ball02.setCollideWorldBounds(true,1,1);
+        this.sun1.setCollideWorldBounds(true,1,1);
+        this.sun1.setDrag(100)
+
         /*this.ball03 = this.physics.add.image(game.config.width/3 - this.ball02.width/2, game.config.height/2 + this.ball02.height/2, 'ball').setScale(1);
         this.ball03.body.allowGravity = false;
         this.ball03.body.immovable = false;
@@ -117,7 +125,7 @@ class Road extends Phaser.Scene{
         this.ball06.body.isCircle = true;
         this.ball06.body.setBounce(1,1)
         this.ball06.setCollideWorldBounds(true,1,1);*/
-        this.ball02.setDrag(100)
+        
         /*this.ball03.setDrag(50)
         this.ball04.setDrag(50)
         this.ball05.setDrag(50)
@@ -131,7 +139,7 @@ class Road extends Phaser.Scene{
         // add physics collider
         this.physics.add.collider(this.car01, this.ground);
         //this.physics.add.collider(this.bar01, this.ball01);
-        this.physics.add.collider(this.hero1, this.ball02);
+        this.physics.add.collider(this.hero1, this.sun1);
         /*this.physics.add.collider(this.hero1, this.ball03);
         this.physics.add.collider(this.hero1, this.ball04);
         this.physics.add.collider(this.hero1, this.ball05);
@@ -165,12 +173,27 @@ class Road extends Phaser.Scene{
         this.cloud6 = new Cloud(this, game.config.width * Math.random(), game.config.height * Math.random() * 0.7, 'cloud', 0).setOrigin(0, 0);
 
         // Create Lunar Arrows
-        this.arrow1 = new Arrow(this, 200, 200, 'arrow', 0).setOrigin(0, 0);
+        this.arrow1 = new Arrow(this, game.config.width + this.arrow1.width, game.config.height*Math.random(), 'arrow', 0).setOrigin(0.5, 0.5);
+        this.arrow2 = new Arrow(this, game.config.width + this.arrow1.width*3, game.config.height*Math.random(), 'arrow', 0).setOrigin(0.5, 0.5);
+        this.arrow3 = new Arrow(this, game.config.width + this.arrow1.width*5, game.config.height*Math.random(), 'arrow', 0).setOrigin(0.5, 0.5);
 
+        this.gameOver = false
+
+        keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
+        keyG = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.G);
+
+        // animation config
+        this.anims.create({
+            key: 'explode',
+            frames: this.anims.generateFrameNumbers('explosion', { start: 0, end: 19, first: 0}),
+            frameRate: 30
+        });
     }
 
     update(){
         this.groundScroll.tilePositionX += this.SCROLL_SPEED;
+
+        this.sun1.angle += 0.5
     
         if(Phaser.Input.Keyboard.JustDown(keySPACE)){
             this.car01.setVelocityY(this.JUMP_VELOCITY);
@@ -206,30 +229,120 @@ class Road extends Phaser.Scene{
         this.ball06.setVelocity(this.VEL * this.direction.x, this.VEL * this.direction.y)
         */
 
-        //spawn attack arrows
-        if(Math.floor(Math.random()*5) == 0){
-            this.spawnArrow = true;
-        }  
+        //Gravity Power
+        this.VELGravity = this.VEL/5*4
+        this.direction2 = new Phaser.Math.Vector2(0)
+        if(Phaser.Input.Keyboard.JustDown(keyG)){
 
-        if(this.spawnArrow = true){
-            
+            this.distX = Math.abs(this.hero1.x - this.sun1.x)
+            this.distY = Math.abs(this.hero1.y - this.sun1.y)
+
+            if(this.hero1.x < this.sun1.x){
+                this.direction2.x = -1 * ( (this.distX) / (this.distX + this.distY) )
+            } else{
+                this.direction2.x = 1 * ( (this.distX) / (this.distX + this.distY) )
+            }
+
+            if(this.hero1.y < this.sun1.y){
+                this.direction2.y = -1 * ( (this.distY) / (this.distX + this.distY) )
+            } else{
+                this.direction2.y = 1 * ( (this.distY) / (this.distX + this.distY) )
+            }
+
+            this.direction2.normalize()
+            this.sun1.setVelocity(this.VELGravity * this.direction2.x, this.VELGravity * this.direction2.y)
+
         }
 
-        this.cloud1.update()
-        this.cloud2.update()
-        this.cloud3.update()
-        this.cloud4.update()
-        this.cloud5.update()
-        this.cloud6.update()
+        if(!this.gameOver){
+            this.cloud1.update()
+            this.cloud2.update()
+            this.cloud3.update()
+            this.cloud4.update()
+            this.cloud5.update()
+            this.cloud6.update()
 
-        this.arrow1.update()
+            this.arrow1.update()
+            this.arrow2.update()
+            this.arrow3.update()
+        }
+
+        if(this.checkCollision(this.sun1, this.arrow1)){
+            if(!this.gameOver){
+                this.sunExplode(this.sun1)
+            }
+            this.gameOver = true
+        }  
+        if(this.checkCollision(this.sun1, this.arrow2)){
+            if(!this.gameOver){
+                this.sunExplode(this.sun1)
+            }
+            this.gameOver = true
+        }  
+        if(this.checkCollision(this.sun1, this.arrow3)){
+            if(!this.gameOver){
+                this.sunExplode(this.sun1)
+            }
+            this.gameOver = true
+        }       
+        
         //this.hero1.anims.play('heroCape')
 
         //if(!hero1.anims.isPlaying()){
         //    hero1.anims.play('hero');
         //}
 
+        //check key input for restart
+        if(this.gameOver && Phaser.Input.Keyboard.JustDown(keyR)){
+            //this.backgroundMusic.stop();
+            this.scene.restart();
+            //this.backgroundMusic.play();
+            //this.initTime = this.time.now;
+        }
         
+    }
+
+    checkCollision(sun, arrow) {
+        // simple AABB checking
+        if (sun.x - sun.width/2 < arrow.x + arrow.width/2 && 
+          sun.x + sun.width/2 > arrow.x - arrow.width/2 && 
+          sun.y - sun.height/2 < arrow.y + arrow.height/2 &&
+          sun.height/2 + sun.y > arrow. y - arrow.height/2) {
+          return true;
+        } else {
+          return false;
+        }
+    }
+
+    sunExplode(sun) {
+        // temporarily hide sun
+        sun.alpha = 0;
+        //this.scoreConfig.color = '#3BB143';
+        // create explosion sprite at ship's position
+        let boom = this.add.sprite(sun.x, sun.y, 'explosion').setOrigin(0.5, 0.5);
+        boom.angle = sun.angle
+        boom.anims.play('explode');             // play explode animation
+        boom.on('animationcomplete', () => {    // callback after anim completes
+          /*sun.reset();                         // reset sun position
+          sun.alpha = 1;*/
+          sun.x = -100                       // make sun visible again
+          boom.destroy();                       // remove explosion sprite
+        });  
+
+        /*this.explosionNum =  Math.floor(Math.random()*4); 
+        if(this.explosionNum == 0){
+            this.sound.play('sfx_explosion1');
+        }
+        else if(this.explosionNum == 1){
+            this.sound.play('sfx_explosion2');
+        }    
+        else if(this.explosionNum == 2){
+            this.sound.play('sfx_explosion3');
+        }
+        else if(this.explosionNum == 3){
+            this.sound.play('sfx_explosion4');
+        }*/
+
     }
     
 }

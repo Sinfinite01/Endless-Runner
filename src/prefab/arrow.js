@@ -7,12 +7,16 @@ class Arrow extends Phaser.GameObjects.Sprite {
         this.speed = 2
     }
     update(){
+
+        //this.scene.physics.add
+
         if( this.x >= 0 - this.width ){
             this.x -= this.speed
         }
         else{
             this.reset()
-            this.y = this.scene.ball02.y
+            this.y = this.scene.sun1.y
+            this.speed += 0.1
         }
     }
     reset(){
