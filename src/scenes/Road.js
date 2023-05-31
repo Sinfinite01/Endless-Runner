@@ -9,7 +9,8 @@ class Road extends Phaser.Scene{
         this.load.image('road','./assets/road.png')
         this.load.image('ball','./assets/ball.png')
         this.load.image('bar','./assets/bar.png')
-        //this.load.image('arrow, ./assets/arrow.png')
+        this.load.image('arrow', './assets/arrow.png')
+        this.load.image('cloud', './assets/cloud.png')
 
         // load spritesheet
         this.load.spritesheet('hero', './assets/hero.png', {frameWidth: 50, frameHeight: 50, startFrame: 0, endFrame: 3});
@@ -89,6 +90,7 @@ class Road extends Phaser.Scene{
         this.ball02.body.allowGravity = false;
         this.ball02.body.immovable = false;
         this.ball02.body.isCircle = true;
+        this.ball02.setDepth(1)
         //this.ball02.body.setBounce(1,1)
         this.ball02.setCollideWorldBounds(true,1,1);
         /*this.ball03 = this.physics.add.image(game.config.width/3 - this.ball02.width/2, game.config.height/2 + this.ball02.height/2, 'ball').setScale(1);
@@ -154,8 +156,16 @@ class Road extends Phaser.Scene{
             frameRate: 10
         })
         
-        
-        
+        // Create Clouds
+        this.cloud1 = new Cloud(this, game.config.width * Math.random(), game.config.height * Math.random() * 0.7, 'cloud', 0).setOrigin(0, 0);
+        this.cloud2 = new Cloud(this, game.config.width * Math.random(), game.config.height * Math.random() * 0.7, 'cloud', 0).setOrigin(0, 0);
+        this.cloud3 = new Cloud(this, game.config.width * Math.random(), game.config.height * Math.random() * 0.7, 'cloud', 0).setOrigin(0, 0);
+        this.cloud4 = new Cloud(this, game.config.width * Math.random(), game.config.height * Math.random() * 0.7, 'cloud', 0).setOrigin(0, 0);
+        this.cloud5 = new Cloud(this, game.config.width * Math.random(), game.config.height * Math.random() * 0.7, 'cloud', 0).setOrigin(0, 0);
+        this.cloud6 = new Cloud(this, game.config.width * Math.random(), game.config.height * Math.random() * 0.7, 'cloud', 0).setOrigin(0, 0);
+
+        // Create Lunar Arrows
+        this.arrow1 = new Arrow(this, 200, 200, 'arrow', 0).setOrigin(0, 0);
 
     }
 
@@ -197,7 +207,7 @@ class Road extends Phaser.Scene{
         */
 
         //spawn attack arrows
-        if(Math.floor(Math.random()*5) == 0 && this.arrow1.x < 0){
+        if(Math.floor(Math.random()*5) == 0){
             this.spawnArrow = true;
         }  
 
@@ -205,8 +215,14 @@ class Road extends Phaser.Scene{
             
         }
 
+        this.cloud1.update()
+        this.cloud2.update()
+        this.cloud3.update()
+        this.cloud4.update()
+        this.cloud5.update()
+        this.cloud6.update()
 
-
+        this.arrow1.update()
         //this.hero1.anims.play('heroCape')
 
         //if(!hero1.anims.isPlaying()){
