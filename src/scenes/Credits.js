@@ -37,7 +37,7 @@ class Credits extends Phaser.Scene{
         //this.add.text(game.config.width/2, game.config.height/3 + 100, 'Click "G" to Activate Your Gravity Power', menuConfig).setOrigin(0.5);
 
         this.add.text(game.config.width/2, game.config.height/7 , 'Credits for Sound:', menuConfig).setOrigin(0.5);
-        this.add.text(game.config.width/2, game.config.height/7*2 , 'I made gravity, explosion sfx in https://sfxr.me/', menuConfig).setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height/7*2 , 'I made gravity & explosion sfx in https://sfxr.me/', menuConfig).setOrigin(0.5);
         menuConfig.fontSize = '15px'
         this.add.text(game.config.width/2, game.config.height/7*3 , 'Piano Background by Nick_Simon-Adams https://freesound.org/people/Nick_Simon-Adams/sounds/647614/', menuConfig).setOrigin(0.5);
         menuConfig.fontSize = '18px'
