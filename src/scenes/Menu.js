@@ -10,6 +10,8 @@ class Menu extends Phaser.Scene{
         this.load.image('bar','./assets/bar.png')
         this.load.image('arrow', './assets/arrow.png')
         this.load.image('cloud', './assets/cloud2.png')
+        this.load.image('darkArrow', './assets/darkArrow.png')
+        this.load.image('warning', './assets/warning.png')
 
         // load spritesheet
         this.load.spritesheet('hero', './assets/hero.png', {frameWidth: 50, frameHeight: 50, startFrame: 0, endFrame: 3});
