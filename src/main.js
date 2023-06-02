@@ -9,10 +9,10 @@ let config = {
     physics: {
         default: 'arcade',
         arcade: {
-            //debug: true
+            debug: true
         }
     },
-    scene: [ Road ]
+    scene: [ Menu, Tutorial, Road ]
 }
 
 let game = new Phaser.Game(config)
@@ -21,4 +21,5 @@ let tileSize = 50;
 
 // Reserve keyboard vars
 let keySPACE;
-let keyK, keyQ, keyW, keyE, keyR, keyG;
+let keyK, keyQ, keyW, keyE, keyR, keyG, keyLEFT, keyRIGHT, keyM;
+let highScore = 0
