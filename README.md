@@ -1,6 +1,6 @@
 Credits for Sound:
 
-https://sfxr.me/
+Made sfx for gravity power and sun explosion in https://sfxr.me/
 
 Piano Background by Nick_Simon-Adams https://freesound.org/people/Nick_Simon-Adams/sounds/647614/
 
