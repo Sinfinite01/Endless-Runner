@@ -61,7 +61,7 @@ class Menu extends Phaser.Scene{
         //menuConfig.color = '#000';
 
         this.add.text(game.config.width/2, game.config.height/3 + 100, 'Click "G" to Activate Your Gravity Power', menuConfig).setOrigin(0.5);
-        this.add.text(game.config.width/2, game.config.height/3 + 150, 'Move with Arrow Keys', menuConfig).setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height/3 + 150, 'Use Arrow Keys to Move and Push', menuConfig).setOrigin(0.5);
         this.add.text(game.config.width/2, game.config.height/3 + 200, 'Press the → Button to Continue', menuConfig).setOrigin(0.5);
         
 
