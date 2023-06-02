@@ -504,6 +504,8 @@ class Road extends Phaser.Scene{
         }
     }
 
+
+    //random and increasing challenge
     arrowUpdate(arrow,sun){
         //this.scene.physics.add
 
