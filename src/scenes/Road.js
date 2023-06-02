@@ -5,7 +5,7 @@ class Road extends Phaser.Scene{
     }
 
     preload(){
-        //this.load.audio('sfx_arrow', './assets/321552__brendan89__regular-arrow-shot.wav');
+        
     }
 
     create(){
