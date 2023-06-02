@@ -97,7 +97,7 @@ class Road extends Phaser.Scene{
         this.sun1.body.allowGravity = false;
         this.sun1.body.immovable = false;
         this.sun1.body.isCircle = true;
-        this.sun1.setDepth(1)
+        this.sun1.setDepth(3)
         //this.ball02.body.setBounce(1,1)
         this.sun1.setCollideWorldBounds(true,1,1);
         this.sun1.setDrag(75)
@@ -136,6 +136,7 @@ class Road extends Phaser.Scene{
         this.hero1.body.height = 40
         this.hero1.body.allowGravity = false;
         this.hero1.body.immovable = false;
+        this.hero1.setDepth(1)
 
         // add physics collider
         this.physics.add.collider(this.car01, this.ground);
@@ -197,12 +198,16 @@ class Road extends Phaser.Scene{
 
         this.arrow1.body.allowGravity = false;
         this.arrow1.body.immovable = false;
+        this.arrow1.setDepth(2)
         this.arrow2.body.allowGravity = false;
         this.arrow2.body.immovable = false;
+        this.arrow2.setDepth(2)
         this.arrow3.body.allowGravity = false;
         this.arrow3.body.immovable = false;
+        this.arrow3.setDepth(2)
         this.darkArrow1.body.allowGravity = false;
         this.darkArrow1.body.immovable = false;
+        this.darkArrow1.setDepth(2)
 
         this.warning1 = this.add.sprite(game.config.width - 25 , game.config.height*Math.random(), 'warning').setOrigin(0.5, 0.5)
         this.warning1.alpha = 0
@@ -224,11 +229,11 @@ class Road extends Phaser.Scene{
         });
 
         // animation config
-        this.anims.create({
+        /*this.anims.create({
             key: 'suck2',
             frames: this.anims.generateFrameNumbers('gravity2', { start: 0, end: 2, first: 0}),
             frameRate: 15
-        });
+        });*/
 
         this.endTextShown = false
 
@@ -546,7 +551,7 @@ class Road extends Phaser.Scene{
         }
     }
 
-    attract(hero){
+    /*attract(hero){
         let pull = this.add.sprite(hero.x,hero.y,'gravity2').setOrigin(0.5,0.5).setScale(1.5)
         pull.anims.play('suck2')
         pull.on('animationcomplete', () => { 
@@ -554,7 +559,7 @@ class Road extends Phaser.Scene{
         })
 
 
-    }
+    }*/
 
     sunExplode(sun) {
         // temporarily hide sun
