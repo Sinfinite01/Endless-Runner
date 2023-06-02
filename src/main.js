@@ -23,7 +23,7 @@ let config = {
             debug: true
         }
     },
-    scene: [ Menu, Tutorial, Road ]
+    scene: [ Menu, Tutorial, Road, Credits ]
 }
 
 let game = new Phaser.Game(config)
@@ -32,5 +32,5 @@ let tileSize = 50;
 
 // Reserve keyboard vars
 let keySPACE;
-let keyK, keyQ, keyW, keyE, keyR, keyG, keyLEFT, keyRIGHT, keyM;
+let keyK, keyQ, keyW, keyE, keyR, keyG, keyLEFT, keyRIGHT, keyM, keyC;
 let highScore = 0

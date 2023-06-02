@@ -194,6 +194,7 @@ class Road extends Phaser.Scene{
         keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
         keyG = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.G);
         keyM = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.M);
+        keyC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.C);
 
 
         // animation config
@@ -244,7 +245,7 @@ class Road extends Phaser.Scene{
     
         this.arrowSpeed = 2
 
-        this.backgroundMusic = this.sound.add('sfx_background').setVolume(0.5)
+        this.backgroundMusic = this.sound.add('sfx_background').setVolume(0.4)
         if(!this.backgroundMusic.isPlaying){
             this.backgroundMusic.play();
         }
@@ -409,6 +410,10 @@ class Road extends Phaser.Scene{
             this.scene.start('menuScene');
         }
 
+        if(this.gameOver && Phaser.Input.Keyboard.JustDown(keyC)){
+            this.scene.start('creditsScene');
+        }
+
         // End Text
         this.endText = {
             fontFamily: 'font1',
@@ -423,7 +428,9 @@ class Road extends Phaser.Scene{
             this.endText.fontSize = '30px'
             this.add.text(game.config.width/2, game.config.height/2+50, "Press R to Restart", this.endText)
             this.add.text(game.config.width/2, game.config.height/2+50+30, "or M to Menu", this.endText)
-            this.add.text(game.config.width/2, game.config.height/2+50+30+30, "Highscore: " + highScore, this.endText)
+            this.add.text(game.config.width/2, game.config.height/2+50+30+30, "or C to Credits", this.endText)
+            //this.endText.fontSize = '25px'
+            this.add.text(game.config.width/2, game.config.height/2+50+30+30+30, "Highscore: " + highScore, this.endText)
         }
         
         
@@ -434,14 +441,19 @@ class Road extends Phaser.Scene{
     arrowUpdate(arrow,sun){
         //this.scene.physics.add
 
-        if( arrow.x >= 0 - arrow.width ){
+        if( arrow.x >= 0 - arrow.width && arrow.x <= game.config.width + arrow.width){
             arrow.x -= this.arrowSpeed
         }
+        else if(arrow.x > game.config.width + arrow.width){
+            arrow.x -= 1.8
+        }
         else{
-            arrow.x = game.config.width + arrow.width
+            
+            arrow.x = game.config.width + arrow.width*2
             arrow.y = sun.y
-            this.arrowSpeed += 0.1
+            this.arrowSpeed += 0.1 / 3
             this.arrowSound.play()
+            
         }
     }
 
