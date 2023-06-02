@@ -263,6 +263,21 @@ class Road extends Phaser.Scene{
 
         this.arrowSound = this.sound.add('sfx_arrow').setVolume(0.5)
 
+
+        this.arrowSound.play()
+
+        this.clock = this.time.delayedCall(1000, () => {
+            this.arrowSound.play()
+        }, null, this);
+
+        this.clock = this.time.delayedCall(2000, () => {
+            this.arrowSound.play()
+        }, null, this);
+
+        this.clock = this.time.delayedCall(3000, () => {
+            this.arrowSound.play()
+        }, null, this);
+
         
     }
 
@@ -389,7 +404,13 @@ class Road extends Phaser.Scene{
                 this.sunExplode(this.sun1)
             }
             this.gameOver = true
-        }       
+        } 
+        if(this.checkCollision(this.sun1, this.darkArrow1)){
+            if(!this.gameOver){
+                this.sunExplode(this.sun1)
+            }
+            this.gameOver = true
+        } 
         if(this.gameOver){
             if(highScore<this.clockRightCounter){
                 highScore = this.clockRightCounter
