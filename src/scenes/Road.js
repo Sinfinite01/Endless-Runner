@@ -159,11 +159,23 @@ class Road extends Phaser.Scene{
 
 
         // animation config
-        this.anims.create({
+       /* this.anims.create({
             key: 'heroCape',
             frames: this.anims.generateFrameNumbers('hero', { start: 0, end: 3, first: 0}),
             frameRate: 10
-        })
+        })*/
+
+        this.anims.create({
+            key: 'heroCape',
+            frames: this.anims.generateFrameNames('hero', {
+                prefix: 'heroCape (',
+                start: 1,
+                end: 4,
+                suffix: ')'
+            }),
+            frameRate: 10,
+            repeat: -1
+        });
         
         // Create Clouds
         this.cloud1 = new Cloud(this, game.config.width * Math.random(), game.config.height * Math.random() * 0.7, 'cloud', 0).setOrigin(0, 0);

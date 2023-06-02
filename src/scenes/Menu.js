@@ -14,7 +14,7 @@ class Menu extends Phaser.Scene{
         this.load.image('warning', './assets/warning.png')
 
         // load spritesheet
-        this.load.spritesheet('hero', './assets/hero.png', {frameWidth: 50, frameHeight: 50, startFrame: 0, endFrame: 3});
+        //this.load.spritesheet('hero', './assets/hero.png', {frameWidth: 50, frameHeight: 50, startFrame: 0, endFrame: 3});
     
         // load spritesheet
         this.load.spritesheet('explosion', './assets/sunExplosion.png', {frameWidth: 75, frameHeight: 75, startFrame: 0, endFrame: 20});
@@ -22,7 +22,9 @@ class Menu extends Phaser.Scene{
         this.load.spritesheet('gravity2', './assets/gravity2.png', {frameWidth: 75, frameHeight: 75, startFrame: 0, endFrame: 3});
     
         // load texture atlas
-        this.load.atlas('gravity', './assets/gravity.png', './assets/gravity.json');
+        this.load.atlas('gravity', './assets/gravity.png', './assets/gravity.json')
+
+        this.load.atlas('hero', './assets/heroAtlas.png', './assets/heroAtlas.json')
 
         this.load.audio('sfx_background', './assets/bgMusic.wav');
         this.load.audio('sfx_explosion', './assets/explosion.wav');
