@@ -20,7 +20,17 @@ class Menu extends Phaser.Scene{
         this.load.spritesheet('gravity2', './assets/gravity2.png', {frameWidth: 75, frameHeight: 75, startFrame: 0, endFrame: 3});
     
         // load texture atlas
-        this.load.atlas('gravity', 'assets/gravity.png', 'assets/gravity.json');
+        this.load.atlas('gravity', './assets/gravity.png', './assets/gravity.json');
+
+        this.load.audio('sfx_background', './assets/bgMusic.wav');
+        this.load.audio('sfx_explosion', './assets/explosion.wav');
+        //this.load.audio('sfx_gravity4', './assets/synth2.wav');
+        //this.load.audio('sfx_gravity3', './assets/PowerUp1.wav');
+        this.load.audio('sfx_gravity', './assets/PowerUp2.wav');
+        //his.load.audio('sfx_gravity2', './assets/PowerUp3.wav');
+        //this.load.audio('sfx_gravity', './assets/synth.wav');
+        this.load.audio('sfx_arrow', './assets/arrow-shot.wav');
+
     }
 
     create(){

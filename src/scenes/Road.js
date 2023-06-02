@@ -5,7 +5,7 @@ class Road extends Phaser.Scene{
     }
 
     preload(){
-       
+        //this.load.audio('sfx_arrow', './assets/321552__brendan89__regular-arrow-shot.wav');
     }
 
     create(){
@@ -100,7 +100,7 @@ class Road extends Phaser.Scene{
         this.sun1.setDepth(1)
         //this.ball02.body.setBounce(1,1)
         this.sun1.setCollideWorldBounds(true,1,1);
-        this.sun1.setDrag(100)
+        this.sun1.setDrag(75)
 
         /*this.ball03 = this.physics.add.image(game.config.width/3 - this.ball02.width/2, game.config.height/2 + this.ball02.height/2, 'ball').setScale(1);
         this.ball03.body.allowGravity = false;
@@ -243,6 +243,17 @@ class Road extends Phaser.Scene{
         this.initTime = this.time.now;
     
         this.arrowSpeed = 2
+
+        this.backgroundMusic = this.sound.add('sfx_background').setVolume(0.5)
+        if(!this.backgroundMusic.isPlaying){
+            this.backgroundMusic.play();
+        }
+
+        this.explosionSound = this.sound.add('sfx_explosion').setVolume(0.5)
+
+        this.gravitySound = this.sound.add('sfx_gravity').setVolume(0.5)
+
+        this.arrowSound = this.sound.add('sfx_arrow').setVolume(0.5)
     }
 
     update(){
@@ -316,6 +327,8 @@ class Road extends Phaser.Scene{
             this.testPull.alpha = 1
             this.testPull.anims.play('suck')
 
+            this.gravitySound.play()
+
         }
 
         this.testPull.x = this.hero1.x+1
@@ -379,7 +392,13 @@ class Road extends Phaser.Scene{
         //}
 
         //check key input for restart
+
+        if(!this.backgroundMusic.isPlaying){
+            this.backgroundMusic.play();
+        }
+
         if(this.gameOver && Phaser.Input.Keyboard.JustDown(keyR)){
+            this.backgroundMusic.stop();
             //this.backgroundMusic.stop();
             this.scene.restart();
             //this.backgroundMusic.play();
@@ -409,6 +428,7 @@ class Road extends Phaser.Scene{
         
         
         
+        
     }
 
     arrowUpdate(arrow,sun){
@@ -421,6 +441,7 @@ class Road extends Phaser.Scene{
             arrow.x = game.config.width + arrow.width
             arrow.y = sun.y
             this.arrowSpeed += 0.1
+            this.arrowSound.play()
         }
     }
 
@@ -460,7 +481,8 @@ class Road extends Phaser.Scene{
         // create explosion sprite at ship's position
         let boom = this.add.sprite(sun.x, sun.y, 'explosion').setOrigin(0.5, 0.5);
         boom.angle = sun.angle
-        boom.anims.play('explode');             // play explode animation
+        boom.anims.play('explode');  
+        this.explosionSound.play()           // play explode animation
         boom.on('animationcomplete', () => {    // callback after anim completes
           /*sun.reset();                         // reset sun position
           sun.alpha = 1;*/

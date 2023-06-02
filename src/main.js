@@ -1,3 +1,14 @@
+/*#################################
+#   Dylan Louie
+#   Save the Sun!
+#   Estimated Time: 20-30 hours
+#   Creative Tilt:
+#       - I implemented a unique mechanic which I call "gravity", as an extention to that instead of running the player character flies enhancing the 
+        - usability of the gravity mechanic. Also instead of the player avatar being the one dodging, instead the player is manipulating another 
+        - sprite, the Sun, and saving that instead.
+#
+#################################*/
+
 let config = {
     type: Phaser.CANVAS,
     render: {
