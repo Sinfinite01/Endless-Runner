@@ -191,9 +191,9 @@ class Road extends Phaser.Scene{
         //this.arrow3 = new Arrow(this, game.config.width + this.arrow1.width*5, game.config.height*Math.random(), 'arrow', 0).setOrigin(0.5, 0.5);
 
         this.arrow1 = this.physics.add.sprite(game.config.width + this.arrow1.width, game.config.height*Math.random(), 'arrow').setOrigin(0.5, 0.5)
-        this.arrow2 = this.physics.add.sprite(game.config.width + this.arrow1.width*3, game.config.height*Math.random(), 'arrow').setOrigin(0.5, 0.5)
-        this.arrow3 = this.physics.add.sprite(game.config.width + this.arrow1.width*5, game.config.height*Math.random(), 'arrow').setOrigin(0.5, 0.5)
-        this.darkArrow1 = this.physics.add.sprite(game.config.width + this.arrow1.width*7, game.config.height*Math.random(), 'darkArrow').setOrigin(0.5, 0.5)
+        this.arrow2 = this.physics.add.sprite(game.config.width + this.arrow1.width*3.25, game.config.height*Math.random(), 'arrow').setOrigin(0.5, 0.5)
+        this.arrow3 = this.physics.add.sprite(game.config.width + this.arrow1.width*5.25, game.config.height*Math.random(), 'arrow').setOrigin(0.5, 0.5)
+        this.darkArrow1 = this.physics.add.sprite(game.config.width + this.arrow1.width*7.25, game.config.height*Math.random(), 'darkArrow').setOrigin(0.5, 0.5)
 
         this.arrow1.body.allowGravity = false;
         this.arrow1.body.immovable = false;

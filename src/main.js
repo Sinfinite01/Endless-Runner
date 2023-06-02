@@ -15,6 +15,7 @@ let config = {
         pixelArt: true
     },
     backgroundColor: '#ADD8E6',
+    autoCenter: true,
     width: 840,
     height: 525,
     physics: {
