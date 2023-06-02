@@ -263,6 +263,7 @@ class Road extends Phaser.Scene{
         this.initTime = this.time.now;
     
         this.arrowSpeed = 2
+        this.darkArrowSpeed = 2
 
         this.backgroundMusic = this.sound.add('sfx_background').setVolume(0.4)
         if(!this.backgroundMusic.isPlaying){
@@ -485,7 +486,7 @@ class Road extends Phaser.Scene{
         //this.scene.physics.add
 
         if( arrow.x >= 0 - arrow.width && arrow.x <= game.config.width + arrow.width){
-            arrow.x -= this.arrowSpeed
+            arrow.x -= this.darkArrowSpeed
             this.warning1.alpha = 0
         }
         else if(arrow.x > game.config.width + arrow.width){
@@ -498,7 +499,7 @@ class Road extends Phaser.Scene{
             
             arrow.x = game.config.width + arrow.width*2
             arrow.y = sun.y
-            this.arrowSpeed += 0.1 / 3
+            this.darkArrowSpeed += 0.4
             this.arrowSound.play()
             
         }
@@ -520,7 +521,7 @@ class Road extends Phaser.Scene{
             
             arrow.x = game.config.width + arrow.width*2
             arrow.y = game.config.height * Math.random()
-            this.arrowSpeed += 0.1 / 3
+            this.arrowSpeed += 0.1 / 2
             this.arrowSound.play()
             
         }
