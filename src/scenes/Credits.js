@@ -43,8 +43,8 @@ class Credits extends Phaser.Scene{
         menuConfig.fontSize = '18px'
         this.add.text(game.config.width/2, game.config.height/7*4 , 'Regular Arrow Shot by brendan89 https://freesound.org/people/brendan89/sounds/321552/', menuConfig).setOrigin(0.5);
         menuConfig.fontSize = '40px'
-        this.add.text(game.config.width/2, game.config.height/7*6, 'Press the → Button to Play', menuConfig).setOrigin(0.5);
-        this.add.text(game.config.width/2, game.config.height/7*8, 'Press the M Button to Menu', menuConfig).setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height/7*5, 'Press the → Button to Play', menuConfig).setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height/7*6, 'Press the M Button to Menu', menuConfig).setOrigin(0.5);
         
 
         // define keys
