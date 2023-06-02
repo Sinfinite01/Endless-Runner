@@ -5,21 +5,22 @@ class Road extends Phaser.Scene{
     }
 
     preload(){
-        this.load.image('car','./assets/orangeTruck2.png')
-        this.load.image('road','./assets/road2.png')
-        this.load.image('ball','./assets/sun2.png')
-        this.load.image('bar','./assets/bar.png')
-        this.load.image('arrow', './assets/arrow.png')
-        this.load.image('cloud', './assets/cloud2.png')
-
-        // load spritesheet
-        this.load.spritesheet('hero', './assets/hero.png', {frameWidth: 50, frameHeight: 50, startFrame: 0, endFrame: 3});
-    
-        // load spritesheet
-        this.load.spritesheet('explosion', './assets/sunExplosion.png', {frameWidth: 75, frameHeight: 75, startFrame: 0, endFrame: 20});
+       
     }
 
     create(){
+
+        this.anims.create({
+            key: 'suck',
+            frames: this.anims.generateFrameNames('gravity', {
+                prefix: 'gravity (',
+                start: 1,
+                end: 2,
+                suffix: ')'
+            }),
+            frameRate: 15,
+            repeat: 1
+        });
 
         // variables and settings
         this.JUMP_VELOCITY = -600;    // pixels/second
@@ -92,7 +93,7 @@ class Road extends Phaser.Scene{
         //this.bar01.body.angle = 45
         
 
-        this.sun1 = this.physics.add.sprite(game.config.width/3, game.config.height/2, 'ball').setScale(1);
+        this.sun1 = this.physics.add.sprite(game.config.width/5, game.config.height/4, 'ball').setScale(1);
         this.sun1.body.allowGravity = false;
         this.sun1.body.immovable = false;
         this.sun1.body.isCircle = true;
@@ -173,14 +174,27 @@ class Road extends Phaser.Scene{
         this.cloud6 = new Cloud(this, game.config.width * Math.random(), game.config.height * Math.random() * 0.7, 'cloud', 0).setOrigin(0, 0);
 
         // Create Lunar Arrows
-        this.arrow1 = new Arrow(this, game.config.width + this.arrow1.width, game.config.height*Math.random(), 'arrow', 0).setOrigin(0.5, 0.5);
-        this.arrow2 = new Arrow(this, game.config.width + this.arrow1.width*3, game.config.height*Math.random(), 'arrow', 0).setOrigin(0.5, 0.5);
-        this.arrow3 = new Arrow(this, game.config.width + this.arrow1.width*5, game.config.height*Math.random(), 'arrow', 0).setOrigin(0.5, 0.5);
+        //this.arrow1 = new Arrow(this, game.config.width + this.arrow1.width, game.config.height*Math.random(), 'arrow', 0).setOrigin(0.5, 0.5);
+        //this.arrow2 = new Arrow(this, game.config.width + this.arrow1.width*3, game.config.height*Math.random(), 'arrow', 0).setOrigin(0.5, 0.5);
+        //this.arrow3 = new Arrow(this, game.config.width + this.arrow1.width*5, game.config.height*Math.random(), 'arrow', 0).setOrigin(0.5, 0.5);
+
+        this.arrow1 = this.physics.add.sprite(game.config.width + this.arrow1.width, game.config.height*Math.random(), 'arrow').setOrigin(0.5, 0.5)
+        this.arrow2 = this.physics.add.sprite(game.config.width + this.arrow1.width*3, game.config.height*Math.random(), 'arrow').setOrigin(0.5, 0.5)
+        this.arrow3 = this.physics.add.sprite(game.config.width + this.arrow1.width*5, game.config.height*Math.random(), 'arrow').setOrigin(0.5, 0.5)
+        this.arrow1.body.allowGravity = false;
+        this.arrow1.body.immovable = false;
+        this.arrow2.body.allowGravity = false;
+        this.arrow2.body.immovable = false;
+        this.arrow3.body.allowGravity = false;
+        this.arrow3.body.immovable = false;
+
 
         this.gameOver = false
 
         keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
         keyG = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.G);
+        keyM = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.M);
+
 
         // animation config
         this.anims.create({
@@ -188,9 +202,54 @@ class Road extends Phaser.Scene{
             frames: this.anims.generateFrameNumbers('explosion', { start: 0, end: 19, first: 0}),
             frameRate: 30
         });
+
+        // animation config
+        this.anims.create({
+            key: 'suck2',
+            frames: this.anims.generateFrameNumbers('gravity2', { start: 0, end: 2, first: 0}),
+            frameRate: 15
+        });
+
+        this.endTextShown = false
+
+        /*this.physics.add.collider(this.sun1, this.arrow1, this.sunDeath())
+        this.physics.add.collider(this.sun1, this.arrow2, this.sunDeath())
+        this.physics.add.collider(this.sun1, this.arrow3, this.sunDeath())
+        */
+
+        // add robot
+        //this.gravity = this.add.sprite(config.width/2, config.height/2, 'suck');
+
+        this.testPull = this.add.sprite(this.hero1.x,this.hero1.y,'gravity').setOrigin(0.5,0.5).setScale(1.5)
+        this.testPull.alpha = 0
+
+        // display score
+        this.mainText = {
+            fontFamily: 'font1',
+            fontSize: '48px',
+            color: '#313638',
+            align: 1
+        }
+
+        //clock
+        this.mainText.fontSize = 40
+        this.mainText.color = '#4D5558'
+        this.clockTime = 0 //amt of seconds on the clock
+        this.clockRightCounter = Math.floor(this.clockTime);
+        this.addedTime = 0;
+        this.scoreRight = this.add.text(896 - 150, 20, 'SCORE: ' + this.clockRightCounter, this.mainText).setOrigin(0.5,0.5);
+        //this.scoreRight.fixedWidth = 0;
+        //this.scoreRight.align = 'right';
+        this.initTime = this.time.now;
+    
+        this.arrowSpeed = 2
     }
 
     update(){
+
+        
+        
+
         this.groundScroll.tilePositionX += this.SCROLL_SPEED;
 
         this.sun1.angle += 0.5
@@ -230,7 +289,7 @@ class Road extends Phaser.Scene{
         */
 
         //Gravity Power
-        this.VELGravity = this.VEL/5*4
+        this.VELGravity = this.VEL*5/7
         this.direction2 = new Phaser.Math.Vector2(0)
         if(Phaser.Input.Keyboard.JustDown(keyG)){
 
@@ -252,9 +311,27 @@ class Road extends Phaser.Scene{
             this.direction2.normalize()
             this.sun1.setVelocity(this.VELGravity * this.direction2.x, this.VELGravity * this.direction2.y)
 
+            //this.attract(this.hero1)
+
+            this.testPull.alpha = 1
+            this.testPull.anims.play('suck')
+
         }
 
+        this.testPull.x = this.hero1.x+1
+        this.testPull.y = this.hero1.y-5
+        if(!this.testPull.anims.isPlaying){
+            this.testPull.alpha = 0
+        }
+
+
         if(!this.gameOver){
+            //clock
+            if(!this.gameOver && !this.tutorial){
+                this.clockRightCounter = Math.floor(this.clockTime) + Math.floor((this.time.now-this.initTime)/1000) + Math.floor(this.addedTime);
+                this.scoreRight.text = 'SCORE: ' + this.clockRightCounter
+            }
+
             this.cloud1.update()
             this.cloud2.update()
             this.cloud3.update()
@@ -262,9 +339,13 @@ class Road extends Phaser.Scene{
             this.cloud5.update()
             this.cloud6.update()
 
-            this.arrow1.update()
-            this.arrow2.update()
-            this.arrow3.update()
+            //this.arrow1.update()
+            //this.arrow2.update()
+            //this.arrow3.update()
+
+            this.arrowUpdate(this.arrow1,this.sun1)
+            this.arrowUpdate(this.arrow2,this.sun1)
+            this.arrowUpdate(this.arrow3,this.sun1)
         }
 
         if(this.checkCollision(this.sun1, this.arrow1)){
@@ -285,6 +366,11 @@ class Road extends Phaser.Scene{
             }
             this.gameOver = true
         }       
+        if(this.gameOver){
+            if(highScore<this.clockRightCounter){
+                highScore = this.clockRightCounter
+            }
+        }
         
         //this.hero1.anims.play('heroCape')
 
@@ -299,7 +385,50 @@ class Road extends Phaser.Scene{
             //this.backgroundMusic.play();
             //this.initTime = this.time.now;
         }
+
+        if(this.gameOver && Phaser.Input.Keyboard.JustDown(keyM)){
+            this.scene.start('menuScene');
+        }
+
+        // End Text
+        this.endText = {
+            fontFamily: 'font1',
+            fontSize: '48px',
+            color: '#313638',
+            align: 1
+        }
+
         
+        if(this.gameOver && !this.endTextShown){
+            this.add.text(game.config.width/2, game.config.height/2, "Game Over", this.endText)
+            this.endText.fontSize = '30px'
+            this.add.text(game.config.width/2, game.config.height/2+50, "Press R to Restart", this.endText)
+            this.add.text(game.config.width/2, game.config.height/2+50+30, "or M to Menu", this.endText)
+            this.add.text(game.config.width/2, game.config.height/2+50+30+30, "Highscore: " + highScore, this.endText)
+        }
+        
+        
+        
+    }
+
+    arrowUpdate(arrow,sun){
+        //this.scene.physics.add
+
+        if( arrow.x >= 0 - arrow.width ){
+            arrow.x -= this.arrowSpeed
+        }
+        else{
+            arrow.x = game.config.width + arrow.width
+            arrow.y = sun.y
+            this.arrowSpeed += 0.1
+        }
+    }
+
+    sunDeath(){
+        if(!this.gameOver){
+            this.sunExplode(this.sun1)
+        }
+        this.gameOver = true   
     }
 
     checkCollision(sun, arrow) {
@@ -314,6 +443,16 @@ class Road extends Phaser.Scene{
         }
     }
 
+    attract(hero){
+        let pull = this.add.sprite(hero.x,hero.y,'gravity2').setOrigin(0.5,0.5).setScale(1.5)
+        pull.anims.play('suck2')
+        pull.on('animationcomplete', () => { 
+            pull.destroy()
+        })
+
+
+    }
+
     sunExplode(sun) {
         // temporarily hide sun
         sun.alpha = 0;
@@ -325,7 +464,8 @@ class Road extends Phaser.Scene{
         boom.on('animationcomplete', () => {    // callback after anim completes
           /*sun.reset();                         // reset sun position
           sun.alpha = 1;*/
-          sun.x = -100                       // make sun visible again
+          sun.x = -100
+                                 // make sun visible again
           boom.destroy();                       // remove explosion sprite
         });  
 
