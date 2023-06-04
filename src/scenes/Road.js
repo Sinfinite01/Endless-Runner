@@ -483,10 +483,12 @@ class Road extends Phaser.Scene{
         }
 
         if(this.gameOver && Phaser.Input.Keyboard.JustDown(keyM)){
+            this.backgroundMusic.stop();
             this.scene.start('menuScene');
         }
 
         if(this.gameOver && Phaser.Input.Keyboard.JustDown(keyC)){
+            this.backgroundMusic.stop();
             this.scene.start('creditsScene');
         }
 
