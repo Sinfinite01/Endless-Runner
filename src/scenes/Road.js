@@ -5,7 +5,7 @@ class Road extends Phaser.Scene{
     }
 
     preload(){
-        this.load.audio('sfx_grav', './assets/PowerUp2.mp3');   
+        this.load.audio('sfx_grav', './assets/PowerUp1.wav');   
     }
 
     create(){
