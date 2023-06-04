@@ -6,7 +6,7 @@ class Road extends Phaser.Scene{
 
     preload(){
         //this.load.audio('sfx_grav', './assets/PowerUp1.wav'); 
-          
+
     }
 
     create(){
@@ -281,7 +281,7 @@ class Road extends Phaser.Scene{
 
         this.explosionSound = this.sound.add('sfx_explosion').setVolume(0.5)
 
-        this.gravitySound = this.sound.add('sfx_grav').setVolume(0.6)
+        this.gravitySound = this.sound.add('sfx_grav').setVolume(0.5)
 
         this.arrowSound = this.sound.add('sfx_arrow').setVolume(0.4)
 
