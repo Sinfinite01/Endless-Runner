@@ -273,7 +273,7 @@ class Road extends Phaser.Scene{
         this.arrowSpeed = 2
         this.darkArrowSpeed = 2
 
-        this.backgroundMusic = this.sound.add('sfx_background').setVolume(0.4)
+        this.backgroundMusic = this.sound.add('sfx_background').setVolume(0.35)
         if(!this.backgroundMusic.isPlaying){
             this.backgroundMusic.play();
         }
