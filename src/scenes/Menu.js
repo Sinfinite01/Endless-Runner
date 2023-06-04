@@ -28,7 +28,7 @@ class Menu extends Phaser.Scene{
 
         this.load.audio('sfx_background', './assets/bgMusic.wav');
         this.load.audio('sfx_explosion', './assets/explosion.wav');
-        this.load.audio('sfx_gravity', './assets/PowerUp2 - Copy.wav');
+        this.load.audio('sfx_gravity', './assets/PowerUp2');
         this.load.audio('sfx_arrow', './assets/arrow-shot.wav');
 
         //this.load.audio('sfx_gravity4', './assets/synth2.wav');
@@ -43,8 +43,8 @@ class Menu extends Phaser.Scene{
     create(){
         // display score
         let menuConfig = {
-            fontFamily: 'Sans-serif',
-            fontSize: '50px',
+            fontFamily: 'Impact',
+            fontSize: '100px',
             //backgroundColor: '#1AA7EC',
             align: 'right',
             padding: {
@@ -52,18 +52,21 @@ class Menu extends Phaser.Scene{
                 bottom: 5,
             },
             fixedWidth: 0,
-            color: '#2832C2',
+            color: '#FF0000',
             align: 1,
         } 
         
         //show menu text
-        this.add.text(game.config.width/2, game.config.height/3, 'SAVE THE SUN!', menuConfig).setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height/3.5, 'SAVE THE SUN!', menuConfig).setOrigin(0.5);
         
 
-        menuConfig.color = '#1AA7EC'
+        menuConfig.color = '#FF6863'
         menuConfig.fontSize = '20px'
+        menuConfig.fontFamily = 'Sans-serif'
+
+        //this.add.text(game.config.width/2, game.config.height/3, 'An Endless Runner', menuConfig).setOrigin(0.5);
     
-        this.add.text(game.config.width/2, game.config.height/3 + 50, 'By Dylan Louie', menuConfig).setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height/3 + 50, 'An Endless Runner By Dylan Louie', menuConfig).setOrigin(0.5);
         //menuConfig.backgroundColor = '#A50B5E';
         //menuConfig.color = '#000';
 
@@ -81,5 +84,7 @@ class Menu extends Phaser.Scene{
         if (Phaser.Input.Keyboard.JustDown(keyRIGHT)) {
             this.scene.start('tutorialScene');    
         }
+
+        highScore = 0
     }
 }

@@ -192,9 +192,9 @@ class Road extends Phaser.Scene{
         //this.arrow3 = new Arrow(this, game.config.width + this.arrow1.width*5, game.config.height*Math.random(), 'arrow', 0).setOrigin(0.5, 0.5);
 
         this.arrow1 = this.physics.add.sprite(game.config.width + this.arrow1.width, game.config.height*Math.random(), 'arrow').setOrigin(0.5, 0.5)
-        this.arrow2 = this.physics.add.sprite(game.config.width + this.arrow1.width*3.25, game.config.height*Math.random(), 'arrow').setOrigin(0.5, 0.5)
-        this.arrow3 = this.physics.add.sprite(game.config.width + this.arrow1.width*5.25, game.config.height*Math.random(), 'arrow').setOrigin(0.5, 0.5)
-        this.darkArrow1 = this.physics.add.sprite(game.config.width + this.arrow1.width*7.25, game.config.height*Math.random(), 'darkArrow').setOrigin(0.5, 0.5)
+        this.arrow2 = this.physics.add.sprite(game.config.width + this.arrow1.width*3.5, game.config.height*Math.random(), 'arrow').setOrigin(0.5, 0.5)
+        this.arrow3 = this.physics.add.sprite(game.config.width + this.arrow1.width*5.5, game.config.height*Math.random(), 'arrow').setOrigin(0.5, 0.5)
+        this.darkArrow1 = this.physics.add.sprite(game.config.width + this.arrow1.width*7.5, game.config.height*Math.random(), 'darkArrow').setOrigin(0.5, 0.5)
 
         this.arrow1.body.allowGravity = false;
         this.arrow1.body.immovable = false;
@@ -266,7 +266,10 @@ class Road extends Phaser.Scene{
         //this.scoreRight.fixedWidth = 0;
         //this.scoreRight.align = 'right';
         this.initTime = this.time.now;
-    
+        this.clockRightCounter = 0
+
+        
+
         this.arrowSpeed = 2
         this.darkArrowSpeed = 2
 
@@ -279,7 +282,7 @@ class Road extends Phaser.Scene{
 
         this.gravitySound = this.sound.add('sfx_gravity').setVolume(0.5)
 
-        this.arrowSound = this.sound.add('sfx_arrow').setVolume(0.5)
+        this.arrowSound = this.sound.add('sfx_arrow').setVolume(0.4)
 
 
         this.arrowSound.play()
@@ -296,13 +299,18 @@ class Road extends Phaser.Scene{
             this.arrowSound.play()
         }, null, this);
 
+        this.gameStart = true
         
     }
 
     update(){
 
         
-        
+        if(this.gameStart){
+            this.clockRightCounter = 0
+            this.gameStart = false
+            this.initTime = this.time.now
+        }
 
         this.groundScroll.tilePositionX += this.SCROLL_SPEED;
 
@@ -382,10 +390,13 @@ class Road extends Phaser.Scene{
 
 
         if(!this.gameOver){
-            //clock
-            if(!this.gameOver && !this.tutorial){
-                this.clockRightCounter = Math.floor(this.clockTime) + Math.floor((this.time.now-this.initTime)/1000) + Math.floor(this.addedTime);
-                this.scoreRight.text = 'SCORE: ' + this.clockRightCounter
+
+            if(!this.gameStart){
+                //clock
+                if(!this.gameOver && !this.tutorial){
+                    this.clockRightCounter = Math.floor(this.clockTime) + Math.floor((this.time.now-this.initTime)/1000);
+                    this.scoreRight.text = 'SCORE: ' + this.clockRightCounter
+                }
             }
 
             this.cloud1.update()
@@ -410,30 +421,45 @@ class Road extends Phaser.Scene{
                 this.sunExplode(this.sun1)
             }
             this.gameOver = true
+
+            if(highScore<this.clockRightCounter){
+                highScore = this.clockRightCounter
+            }
         }  
         if(this.checkCollision(this.sun1, this.arrow2)){
             if(!this.gameOver){
                 this.sunExplode(this.sun1)
             }
             this.gameOver = true
+            
+            if(highScore<this.clockRightCounter){
+                highScore = this.clockRightCounter
+            }
+            
         }  
         if(this.checkCollision(this.sun1, this.arrow3)){
             if(!this.gameOver){
                 this.sunExplode(this.sun1)
             }
             this.gameOver = true
+
+            if(highScore<this.clockRightCounter){
+                highScore = this.clockRightCounter
+            }
+            
         } 
         if(this.checkCollision(this.sun1, this.darkArrow1)){
             if(!this.gameOver){
                 this.sunExplode(this.sun1)
             }
             this.gameOver = true
-        } 
-        if(this.gameOver){
-            if(highScore<this.clockRightCounter){
-                highScore = this.clockRightCounter
+            if(this.gameOver){
+                if(highScore<this.clockRightCounter){
+                    highScore = this.clockRightCounter
+                }
             }
-        }
+        } 
+        
         
         //this.hero1.anims.play('heroCape')
 
@@ -452,7 +478,7 @@ class Road extends Phaser.Scene{
             //this.backgroundMusic.stop();
             this.scene.restart();
             //this.backgroundMusic.play();
-            //this.initTime = this.time.now;
+            this.initTime = this.time.now;
         }
 
         if(this.gameOver && Phaser.Input.Keyboard.JustDown(keyM)){
