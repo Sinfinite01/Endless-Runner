@@ -1,7 +1,3 @@
-function getRandomInt(max) {
-    return Math.floor(Math.random() * max);
-}
-
 // Cloud prefab
 class Cloud extends Phaser.GameObjects.Sprite {
     constructor(scene, x, y, texture, frame){
@@ -10,7 +6,7 @@ class Cloud extends Phaser.GameObjects.Sprite {
         scene.add.existing(this);   // add to existing scene
         this.scale = 0.2;
         this.moveSpeed = 0.25;
-        var test = getRandomInt(3); // 0, 1 or 2
+        var test = Math.floor(Math.random() * 3); // 0, 1 or 2
 
         switch(test) {
             case 0:
@@ -34,7 +30,7 @@ class Cloud extends Phaser.GameObjects.Sprite {
         // wrap around from left edge to right edge
         if(this.x <= 0 - this.width) {
             this.reset();
-            var test = getRandomInt(3); // 0, 1 or 2
+            var test = Math.floor(Math.random() * 3); // 0, 1 or 2
 
             switch(test) {
                 case 0:
