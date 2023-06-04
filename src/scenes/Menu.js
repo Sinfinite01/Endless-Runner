@@ -28,7 +28,7 @@ class Menu extends Phaser.Scene{
 
         this.load.audio('sfx_background', './assets/bgMusic.wav');
         this.load.audio('sfx_explosion', './assets/explosion.wav');
-        this.load.audio('sfx_gravity', './assets/PowerUp2');
+        this.load.audio('sfx_gravity', './assets/PowerUp2.wav');
         this.load.audio('sfx_arrow', './assets/arrow-shot.wav');
 
         //this.load.audio('sfx_gravity4', './assets/synth2.wav');
