@@ -194,7 +194,7 @@ class Road extends Phaser.Scene{
 
         this.arrow1 = this.physics.add.sprite(game.config.width + this.arrow1.width, game.config.height*Math.random(), 'arrow').setOrigin(0.5, 0.5)
         this.arrow2 = this.physics.add.sprite(game.config.width + this.arrow1.width*4, game.config.height*Math.random(), 'arrow').setOrigin(0.5, 0.5)
-        this.arrow3 = this.physics.add.sprite(game.config.width + this.arrow1.width*6, game.config.height*Math.random(), 'arrow').setOrigin(0.5, 0.5)
+        this.arrow3 = this.physics.add.sprite(game.config.width + this.arrow1.width*8, game.config.height*Math.random(), 'arrow').setOrigin(0.5, 0.5)
         this.darkArrow1 = this.physics.add.sprite(game.config.width + this.arrow1.width*8, game.config.height*Math.random(), 'darkArrow').setOrigin(0.5, 0.5)
 
         this.arrow1.body.allowGravity = false;
@@ -288,15 +288,15 @@ class Road extends Phaser.Scene{
 
         this.arrowSound.play()
 
-        this.clock = this.time.delayedCall(1000, () => {
-            this.arrowSound.play()
-        }, null, this);
-
-        this.clock = this.time.delayedCall(2000, () => {
+        this.clock = this.time.delayedCall(1500, () => {
             this.arrowSound.play()
         }, null, this);
 
         this.clock = this.time.delayedCall(3000, () => {
+            this.arrowSound.play()
+        }, null, this);
+
+        this.clock = this.time.delayedCall(4500, () => {
             this.arrowSound.play()
         }, null, this);
 
@@ -523,17 +523,17 @@ class Road extends Phaser.Scene{
             arrow.x -= this.darkArrowSpeed
             this.warning1.alpha = 0
         }
-        else if(arrow.x > game.config.width + arrow.width){
-            arrow.x -= 1.8
+        else if(arrow.x > game.config.width + arrow.width/2){
+            arrow.x -= 1.3
             arrow.y = sun.y
             this.warning1.alpha = 1
             this.warning1.y = arrow.y
         }
         else{
             
-            arrow.x = game.config.width + arrow.width*2
+            arrow.x = game.config.width + arrow.width*3
             arrow.y = sun.y
-            this.darkArrowSpeed += 0.4
+            this.darkArrowSpeed += 0.3
             this.arrowSound.play()
             
         }
@@ -555,7 +555,7 @@ class Road extends Phaser.Scene{
             
             arrow.x = game.config.width + arrow.width*2
             arrow.y = game.config.height * Math.random()
-            this.arrowSpeed += 0.1 / 2
+            this.arrowSpeed += 0.1 / 3
             this.arrowSound.play()
             
         }
