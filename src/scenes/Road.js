@@ -94,7 +94,7 @@ class Road extends Phaser.Scene{
         //this.bar01.body.angle = 45
         
 
-        this.sun1 = this.physics.add.sprite(game.config.width/5, game.config.height/4, 'ball').setScale(1);
+        this.sun1 = this.physics.add.sprite(game.config.width/5, game.config.height/4, 'ball').setScale(0.98);
         this.sun1.body.allowGravity = false;
         this.sun1.body.immovable = false;
         this.sun1.body.isCircle = true;
@@ -193,9 +193,9 @@ class Road extends Phaser.Scene{
         //this.arrow3 = new Arrow(this, game.config.width + this.arrow1.width*5, game.config.height*Math.random(), 'arrow', 0).setOrigin(0.5, 0.5);
 
         this.arrow1 = this.physics.add.sprite(game.config.width + this.arrow1.width, game.config.height*Math.random(), 'arrow').setOrigin(0.5, 0.5)
-        this.arrow2 = this.physics.add.sprite(game.config.width + this.arrow1.width*4, game.config.height*Math.random(), 'arrow').setOrigin(0.5, 0.5)
-        this.arrow3 = this.physics.add.sprite(game.config.width + this.arrow1.width*8, game.config.height*Math.random(), 'arrow').setOrigin(0.5, 0.5)
-        this.darkArrow1 = this.physics.add.sprite(game.config.width + this.arrow1.width*8, game.config.height*Math.random(), 'darkArrow').setOrigin(0.5, 0.5)
+        this.arrow2 = this.physics.add.sprite(game.config.width + this.arrow1.width*3.5, game.config.height*Math.random(), 'arrow').setOrigin(0.5, 0.5)
+        this.arrow3 = this.physics.add.sprite(game.config.width + this.arrow1.width*7, game.config.height*Math.random(), 'arrow').setOrigin(0.5, 0.5)
+        this.darkArrow1 = this.physics.add.sprite(game.config.width + this.arrow1.width*10.5, game.config.height*Math.random(), 'darkArrow').setOrigin(0.5, 0.5)
 
         this.arrow1.body.allowGravity = false;
         this.arrow1.body.immovable = false;
@@ -352,7 +352,7 @@ class Road extends Phaser.Scene{
         */
 
         //Gravity Power
-        this.VELGravity = this.VEL*5/7
+        this.VELGravity = this.VEL*0.75
         this.direction2 = new Phaser.Math.Vector2(0)
         if(Phaser.Input.Keyboard.JustDown(keyG)){
 
