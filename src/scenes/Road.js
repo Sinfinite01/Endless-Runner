@@ -280,7 +280,7 @@ class Road extends Phaser.Scene{
 
         this.explosionSound = this.sound.add('sfx_explosion').setVolume(0.5)
 
-        this.gravitySound = this.sound.add('sfx_gravity').setVolume(0.5)
+        this.gravitySound = this.sound.add('sfx_gravity').setVolume(0.6)
 
         this.arrowSound = this.sound.add('sfx_arrow').setVolume(0.4)
 
@@ -601,7 +601,8 @@ class Road extends Phaser.Scene{
           sun.alpha = 1;*/
           sun.x = -100
                                  // make sun visible again
-          boom.destroy();                       // remove explosion sprite
+          boom.destroy();  
+                           // remove explosion sprite
         });  
 
         /*this.explosionNum =  Math.floor(Math.random()*4); 

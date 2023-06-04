@@ -28,15 +28,18 @@ class Tutorial extends Phaser.Scene{
         
 
         menuConfig.color = '#1AA7EC'
-        menuConfig.fontSize = '50px'
+        menuConfig.fontSize = '30px'
     
         //his.add.text(game.config.width/2, game.config.height/3 + 50, 'By Dylan Louie', menuConfig).setOrigin(0.5);
         //menuConfig.backgroundColor = '#A50B5E';
         //menuConfig.color = '#000';
 
         //this.add.text(game.config.width/2, game.config.height/3 + 100, 'Click "G" to Activate Your Gravity Power', menuConfig).setOrigin(0.5);
-        this.add.text(game.config.width/2, game.config.height/3 , 'Help the Sun Escape the arrows!', menuConfig).setOrigin(0.5);
-        this.add.text(game.config.width/2, game.config.height/3 + 100, 'Press the → Button to Continue', menuConfig).setOrigin(0.5);
+
+        this.add.text(game.config.width/2, game.config.height/3 , 'Hou Yi the archer is trying to shoot down the final Sun!', menuConfig).setOrigin(0.5);
+        menuConfig.fontSize = '50px'
+        this.add.text(game.config.width/2, game.config.height/3 + 100, 'Help the Sun Escape the arrows!', menuConfig).setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height/3 + 100 + 100, 'Press the → Button to Continue', menuConfig).setOrigin(0.5);
         
 
         // define keys
